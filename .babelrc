@@ -1,5 +1,9 @@
 {
-  "presets": ["env"],
+  "presets": [
+    "es2015",
+    "es2017",
+    "stage-0"
+  ],
   "plugins": [
     "transform-runtime",
     "transform-async-generator-functions",

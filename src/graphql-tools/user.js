@@ -5,8 +5,6 @@ import { graphqlExpress, graphiqlExpress } from 'graphql-server-express';
 import bodyParser from 'body-parser';
 import {v1 as neo4j} from 'neo4j-driver';
 
-
-
 // Simple Movie schema
 const typeDefs = `
 
@@ -49,7 +47,6 @@ const resolvers = {
   }
 };
 
-
 const schema = makeExecutableSchema({
   typeDefs,
   resolvers,
@@ -57,14 +54,12 @@ const schema = makeExecutableSchema({
 
 let driver;
 
-
-function context(headers, secrets) {
+const context = (headers, secrets) => {
 
   if (!driver) {
     driver = neo4j.driver(secrets.NEO4J_URI || "bolt://localhost:7687", neo4j.auth.basic(secrets.NEO4J_USER || "neo4j", secrets.NEO4J_PASSWORD || "lanjara0311"))
   }
-  return {driver,
-          headers};
+  return {driver, headers};
 }
 
 const rootValue = {};
@@ -81,9 +76,7 @@ server.use('/graphql', bodyParser.json(), graphqlExpress(request => ({
 
 server.use('/graphiql', graphiqlExpress({
   endpointURL: '/graphql',
-  query: `{
-  
-}`,
+  query: `{}`,
 }));
 
 server.listen(PORT, () => {

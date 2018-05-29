@@ -1,25 +1,17 @@
-const _ = require('lodash');
-import {cypherDirectiveArgs, isMutation} from './utils';
+import { filter, has } from "lodash";
+import { cypherDirectiveArgs, isMutation } from './utils';
 
 const returnTypeEnum = {
   OBJECT: 0,
   ARRAY: 1
 };
 
-export function neo4jgraphql(object, params, context, resolveInfo, debug = false, dynamique = false) {
-
-  // const returnTypeEnum = {
-  //   OBJECT: 0,
-  //   ARRAY: 1
-  // };
-
-  let type = innerType(resolveInfo.returnType).toString(),
-    variable = type.charAt(0).toLowerCase() + type.slice(1);
-
-  // is this GraphQL operation a mutation or a query?
-  let mutation = isMutation(resolveInfo);
-
+export const neo4jgraphql = (object, params, context, resolveInfo, debug = false, dynamique = false) => {
   let query;
+
+  const type = innerType(resolveInfo.returnType).toString();
+  const variable = type.charAt(0).toLowerCase() + type.slice(1);
+  const mutation = isMutation(resolveInfo);
 
   if (isMutation(resolveInfo)) {
     query = cypherMutation(params, context, resolveInfo, dynamique);
@@ -31,52 +23,46 @@ export function neo4jgraphql(object, params, context, resolveInfo, debug = false
     console.log(query);  
   }
   
-
-  let returnType = resolveInfo.returnType.toString().startsWith("[") ? returnTypeEnum.ARRAY : returnTypeEnum.OBJECT;
-
-  let session = context.driver.session();
+  const returnType = resolveInfo.returnType.toString().startsWith("[") ? returnTypeEnum.ARRAY : returnTypeEnum.OBJECT;
+  const session = context.driver.session();
 
   if (mutation) {
     params = {params: params};
   }
 
-  let data = session.run(query, params)
-    .then( result => {
-
-      if (returnType === returnTypeEnum.ARRAY) {
-        return result.records.map(record => { return record.get(variable)})
-      } else if (returnType === returnTypeEnum.OBJECT) {
-        if (result.records.length > 0) {
-          // FIXME: use one of the new neo4j-driver consumers when upgrading neo4j-driver package
-          return result.records[0].get(variable);
-        } else {
-          return null;
-        }
-        
+  const data = session.run(query, params).then( result => {
+    if (returnType === returnTypeEnum.ARRAY) {
+      return result.records.map(record => { return record.get(variable)})
+    } else if (returnType === returnTypeEnum.OBJECT) {
+      if (result.records.length > 0) {
+        // FIXME: use one of the new neo4j-driver consumers when upgrading neo4j-driver package
+        return result.records[0].get(variable);
+      } else {
+        return null;
       }
-
-
-    });
-
+    }
+  });
 
   return data;
 
 };
 
-export function cypherMutation(params, context, resolveInfo, dynamique) {
-  if (params.dynamique) return `MATCH (c:Personne),(n:Personne) WHERE c.name = '${params.p1}' AND n.name = '${params.p2}' CREATE (c)-[r:${params.dynamique}]->(n)`
+export const cypherMutation = (params, context, resolveInfo, dynamique) => {
+  if (params.dynamique) {
+    return `MATCH (c:Personne),(n:Personne) WHERE c.name = '${params.p1}' AND n.name = '${params.p2}' CREATE (c)-[r:${params.dynamique}]->(n)`
+  }
   // FIXME: lots of duplication here with cypherQuery, extract into util module
-  let type = innerType(resolveInfo.returnType).toString(),
+  const type = innerType(resolveInfo.returnType).toString(),
     variable = type.charAt(0).toLowerCase() + type.slice(1),
     schemaType = resolveInfo.schema.getType(type);
 
-  let filteredFieldNodes = _.filter(resolveInfo.fieldNodes, function(o) {
+  const filteredFieldNodes = filter(resolveInfo.fieldNodes, function(o) {
     if (o.name.value === resolveInfo.fieldName) {
       return true;
     }
   });
 
-  let selections = filteredFieldNodes[0].selectionSet.selections;
+  const selections = filteredFieldNodes[0].selectionSet.selections;
 
   let query = `CREATE (${variable}:${type}) `;
       query += `SET ${variable} = $params `;
@@ -87,8 +73,8 @@ export function cypherMutation(params, context, resolveInfo, dynamique) {
 }
 
 // this function is exported so it can be used for Cypher query generation only
-export function cypherQuery(params, context, resolveInfo) {
-  let pageParams = {
+export const cypherQuery = (params, context, resolveInfo) => {
+  const pageParams = {
     "first": params['first'] === undefined ? -1 : params['first'],
     "offset": params['offset'] || 0
   };
@@ -96,27 +82,27 @@ export function cypherQuery(params, context, resolveInfo) {
   delete params['first'];
   delete params['offset'];
 
-  let type = innerType(resolveInfo.returnType).toString(),
+  const type = innerType(resolveInfo.returnType).toString(),
     variable = type.charAt(0).toLowerCase() + type.slice(1),
     schemaType = resolveInfo.schema.getType(type);
 
 
-  let filteredFieldNodes = _.filter(resolveInfo.fieldNodes, function(o) {
+  const filteredFieldNodes = filter(resolveInfo.fieldNodes, function(o) {
     if (o.name.value === resolveInfo.fieldName) {
       return true;
     }
   });
 
   // FIXME: how to handle multiple fieldNode matches
-  let selections = filteredFieldNodes[0].selectionSet.selections;
+  const selections = filteredFieldNodes[0].selectionSet.selections;
 
   let wherePredicate = ``;
-  if (_.has(params, '_id')) {
+  if (has(params, '_id')) {
     wherePredicate = `WHERE ID(${variable})=${params._id} `;
     delete params._id;
   }
 
-  let argString = JSON.stringify(params).replace(/\"([^(\")"]+)\":/g,"$1:"); // FIXME: support IN for multiple values -> WHERE
+  const argString = JSON.stringify(params).replace(/\"([^(\")"]+)\":/g,"$1:"); // FIXME: support IN for multiple values -> WHERE
   let query = `MATCH (${variable}:${type} ${argString}) ${wherePredicate}`;
 
   query = query +  `RETURN ${variable} {` + buildCypherSelection(``, selections, variable, schemaType, resolveInfo);// ${variable} { ${selection} } as ${variable}`;
@@ -130,7 +116,7 @@ export function cypherQuery(params, context, resolveInfo) {
 }
 
 
-function buildCypherSelection(initial, selections, variable, schemaType, resolveInfo) { //FIXME: resolveInfo not needed
+const buildCypherSelection = (initial, selections, variable, schemaType, resolveInfo) => { //FIXME: resolveInfo not needed
 
   if (selections.length === 0) {
     return initial;
@@ -145,13 +131,13 @@ function buildCypherSelection(initial, selections, variable, schemaType, resolve
   }
   const fieldType = schemaType.getFields()[fieldName].type;
 
-  let inner = innerType(fieldType) ; // for target "type" aka label
+  const inner = innerType(fieldType) ; // for target "type" aka label
 
-  let fieldHasCypherDirective = schemaType.getFields()[fieldName].astNode.directives.filter((e) => {return e.name.value === 'cypher'}).length > 0;
+  const fieldHasCypherDirective = schemaType.getFields()[fieldName].astNode.directives.filter((e) => {return e.name.value === 'cypher'}).length > 0;
 
   if (fieldHasCypherDirective) {
 
-    let statement = schemaType.getFields()[fieldName].astNode.directives.find((e) => {
+    const statement = schemaType.getFields()[fieldName].astNode.directives.find((e) => {
       return e.name.value === 'cypher'
     }).arguments.find((e) => {
       return e.name.value === 'statement'
@@ -199,16 +185,14 @@ function buildCypherSelection(initial, selections, variable, schemaType, resolve
 
 }
 
-function innerType (type) {
-  return (type.ofType) ? innerType(type.ofType) : type;
-}
+const innerType = type => (type.ofType) ? innerType(type.ofType) : type;
 
-function argumentValue(selection, name) {
+const argumentValue = (selection, name) => {
   let arg = selection.arguments.find( (a) =>  a.name.value  === name)
   return arg === undefined ?  null : arg.value.value
 }
 
-function computeSkipLimit(selection) {
+const computeSkipLimit = selection => {
   let first=argumentValue(selection,"first");
   let offset=argumentValue(selection,"offset");
 

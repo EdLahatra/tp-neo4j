@@ -1,4 +1,4 @@
-export function parseArgs(args) {
+export const parseArgs = args => {
   if (!args) {
     return {};
   }
@@ -24,7 +24,7 @@ export function parseArgs(args) {
   }, {})
 }
 
-function getDefaultArguments(fieldName, schemaType) {
+const getDefaultArguments = (fieldName, schemaType) => {
   // FIXME: check that these things exist
 
   try {
@@ -37,11 +37,10 @@ function getDefaultArguments(fieldName, schemaType) {
   }
 }
 
-export function cypherDirectiveArgs(variable, headSelection, schemaType) {
+export const cypherDirectiveArgs = (variable, headSelection, schemaType) => {
   const defaultArgs = getDefaultArguments(headSelection.name.value, schemaType)//{"this": variable};
   const schemaArgs = {}; // FIXME: what's the differenc between schemargs and defaultargs?
   const queryArgs = parseArgs(headSelection.arguments);
-  console.log(queryArgs);
 
   let args = JSON.stringify(Object.assign(defaultArgs, queryArgs)).replace(/\"([^(\")"]+)\":/g," $1: ");
 
@@ -49,6 +48,4 @@ export function cypherDirectiveArgs(variable, headSelection, schemaType) {
 
 }
 
-export function isMutation(resolveInfo) {
-  return resolveInfo.operation.operation === "mutation";
-}
+export const isMutation = resolveInfo => resolveInfo.operation.operation === "mutation";
