@@ -26,8 +26,6 @@ DELETE r,r1,r2
 MATCH (v:Personne)
 DELETE v
 
-
-
 #Selection
 #All
 MATCH (p:Personne)
@@ -43,8 +41,6 @@ RETURN p
 MATCH (n:Personne {name: 'anjara'})-[:visite]->(p)
 RETURN p
 #
-
-
 
 query {
   Personne(name: "anjara"){

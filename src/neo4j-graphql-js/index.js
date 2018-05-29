@@ -20,7 +20,7 @@ export const neo4jgraphql = (object, params, context, resolveInfo, debug = false
   }
 
   if (debug) {
-    console.log(query);  
+    console.log(query);
   }
   
   const returnType = resolveInfo.returnType.toString().startsWith("[") ? returnTypeEnum.ARRAY : returnTypeEnum.OBJECT;
