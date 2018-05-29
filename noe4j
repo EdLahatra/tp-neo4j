@@ -1,0 +1,83 @@
+#Creer Atribut P
+CREATE (p2:Personne { name: 'anjara' })
+CREATE (p1:Personne { name : 'lahatra' })
+CREATE (p3:Personne { name: 'edwige' })
+CREATE (p4:Personne { name : 'pascal' })
+RETURN p1, p2, p3, p4
+
+#Relation visite
+MATCH (c:Personne),(n:Personne),(a:Personne),(b:Personne)
+WHERE c.name = 'anjara' AND n.name = 'lahatra' AND a.name = 'pascal' AND b.name = 'edwige'
+CREATE (c)-[r:visite]->(n)
+CREATE (a)-[v:visite]->(b)
+CREATE (c)-[h:blaclist]->(a)
+CREATE (b)-[d:blaclist]->(n)
+CREATE (c)-[f:favorite]->(b)
+CREATE (n)-[g:favorite]->(a)
+CREATE (c)-[r:visite]->(a)
+CREATE (a)-[v:visite]->(c)
+return a,b,c,n
+
+#Delete Relation et Collection
+MATCH (n:Personne)-[r:visite]-(m:Personne)
+MATCH (n:Personne)-[r1:blaclist]-(m:Personne)
+MATCH (n:Personne)-[r2:favorite]-(m:Personne)
+DELETE r,r1,r2
+MATCH (v:Personne)
+DELETE v
+
+
+
+#Selection
+#All
+MATCH (p:Personne)
+RETURN p
+#Find Where
+MATCH (p:Personne {name: 'pascal'})
+RETURN p
+
+MATCH (p:Personne)
+WHERE p.name =~ '.*a.*'
+RETURN p
+
+MATCH (n:Personne {name: 'anjara'})-[:visite]->(p)
+RETURN p
+#
+
+
+
+query {
+  Personne(name: "anjara"){
+    name,
+    visite {
+      name
+    },
+    blacklist {
+      name
+    },
+    favorite {
+      name
+    },
+    visiteIn {
+      name
+    },
+    blacklistIn {
+      name
+    },
+    favoriteIn {
+      name
+    },
+  }
+}
+
+mutation {
+  createPerson(name: "test 5") {
+    name
+  }
+}
+
+mutation {
+  ActionPersonne(p1: "test 5", p2: "pascal", dynamique: "favorite") {
+    name
+  }
+}
