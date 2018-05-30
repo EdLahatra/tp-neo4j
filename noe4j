@@ -26,7 +26,6 @@ DELETE r,r1,r2
 MATCH (v:Personne)
 DELETE v
 
-
 #Delete all Relation && Collection
 MATCH (n)
 DETACH DELETE n

@@ -68,11 +68,10 @@ export const cypherMutation = (params, context, resolveInfo, dynamique) => {
   const selections = filteredFieldNodes[0].selectionSet.selections;
 
   let query = `CREATE (${variable}:${type}) `;
-      query += `SET ${variable} = $params `;
-      //query += `RETURN ${variable}`;
-      query += `RETURN ${variable} {` + buildCypherSelection(``, selections, variable, schemaType, resolveInfo);
-      query += `} AS ${variable}`;
-  console.log("query: ", query);
+    query += `SET ${variable} = $params `;
+    //query += `RETURN ${variable}`;
+    query += `RETURN ${variable} {` + buildCypherSelection(``, selections, variable, schemaType, resolveInfo);
+    query += `} AS ${variable}`;
   return query;
 }
 

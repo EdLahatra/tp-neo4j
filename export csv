@@ -1,0 +1,5 @@
+cp -f ../../../../Downloads/export.csv /var/lib/neo4j/import/
+
+LOAD CSV FROM 'file:///export.csv' AS line
+CREATE (:Artist { name: line[1], year: toInteger(line[2])})
+
