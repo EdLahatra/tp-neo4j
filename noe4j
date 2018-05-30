@@ -86,7 +86,13 @@ query{
       name
     },
     message {
-      text
+      text,
+      actors {
+        name
+      },
+      to {
+        name
+      }
     }
   }
 }
