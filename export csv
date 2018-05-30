@@ -1,3 +1,5 @@
+https://neo4j.com/docs/developer-manual/current/cypher/clauses/load-csv/
+
 cp -f ../../../../Downloads/export.csv /var/lib/neo4j/import/
 
 LOAD CSV FROM 'file:///export.csv' AS line
