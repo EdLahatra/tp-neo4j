@@ -19,10 +19,18 @@ export const resolvers = {
       return neo4jgraphql(object, params, ctx, resolveInfo, true);
     },
     ActionPersonne(object, params, ctx, resolveInfo) {
-      return neo4jgraphql(object, params, ctx, resolveInfo, true, true);
+      const paramsD = {
+        ...params,
+        dynamique: "ActionPersonne"
+      }
+      return neo4jgraphql(object, paramsD, ctx, resolveInfo, true);
     },
     AddMessage(object, params, ctx, resolveInfo) {
-      return neo4jgraphql(object, params, ctx, resolveInfo, true, true);
+      const paramsD = {
+        ...params,
+        dynamique: "AddMessage"
+      }
+      return neo4jgraphql(object, paramsD, ctx, resolveInfo, true);
     },
   }
 };

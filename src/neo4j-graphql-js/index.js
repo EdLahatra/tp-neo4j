@@ -49,7 +49,10 @@ export const neo4jgraphql = (object, params, context, resolveInfo, debug = false
 
 export const cypherMutation = (params, context, resolveInfo, dynamique) => {
   if (params.dynamique) {
-    return `MATCH (c:Personne),(n:Personne) WHERE c.name = '${params.p1}' AND n.name = '${params.p2}' CREATE (c)-[r:${params.dynamique}]->(n)`
+    switch (params.dynamique) {
+      case 'ActionPersonne': return `MATCH (c:Personne),(n:Personne) WHERE c.name = '${params.p1}' AND n.name = '${params.p2}' CREATE (c)-[r:${params.relation}]->(n) RETURN c`
+      case 'AddMessage': return `MATCH (c:Personne) WHERE c.name = '${params.actors}' CREATE (message:Message) SET message = {text: '${params.text}', actors: (message)<-[:poster]-(c)} CREATE (c)-[:poster]->(message) RETURN message`
+    }
   }
   // FIXME: lots of duplication here with cypherQuery, extract into util module
   const type = innerType(resolveInfo.returnType).toString(),
@@ -69,6 +72,7 @@ export const cypherMutation = (params, context, resolveInfo, dynamique) => {
       //query += `RETURN ${variable}`;
       query += `RETURN ${variable} {` + buildCypherSelection(``, selections, variable, schemaType, resolveInfo);
       query += `} AS ${variable}`;
+  console.log("query: ", query);
   return query;
 }
 

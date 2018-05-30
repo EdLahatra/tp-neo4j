@@ -42,8 +42,13 @@ MATCH (n:Personne {name: 'anjara'})-[:visite]->(p)
 RETURN p
 #
 
+MATCH (c:Personne) WHERE c.name = 'anjara'
+CREATE (message:Message)
+SET message = {text: "test", actors: (message)<-[:poster]-(c)}
+CREATE (c)-[:poster]->(message)
+
 query {
-  Personne(name: "anjara"){
+  Personne{
     name,
     visite {
       name
@@ -63,6 +68,9 @@ query {
     favoriteIn {
       name
     },
+    message {
+      text
+    }
   }
 }
 
@@ -73,7 +81,10 @@ mutation {
 }
 
 mutation {
-  ActionPersonne(p1: "test 5", p2: "pascal", dynamique: "favorite") {
-    name
+  AddMessage(actors: "anjara", text: "salut") {
+    actors{
+      name
+    },
+    text
   }
 }
