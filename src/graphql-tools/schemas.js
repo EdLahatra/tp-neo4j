@@ -19,7 +19,7 @@ type Message {
 
 type Query {
   Personne(name: String): [Personne]
-  Message(poster: String!): [Message]
+  Message(poster: String): [Message]
 }
 
 type Mutation {

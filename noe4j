@@ -26,6 +26,11 @@ DELETE r,r1,r2
 MATCH (v:Personne)
 DELETE v
 
+
+#Delete all Relation && Collection
+MATCH (n)
+DETACH DELETE n
+
 #Selection
 #All
 MATCH (p:Personne)
@@ -47,7 +52,19 @@ CREATE (message:Message)
 SET message = {text: "test", actors: (message)<-[:poster]-(c)}
 CREATE (c)-[:poster]->(message)
 
-query (name: "test 7"){
+mutation {
+  createPerson(name: "test 5") {
+    name
+  }
+}
+
+mutation {
+  ActionPersonne(p1: "test 3", p2: "test 4", relation: "blacklist") {
+    name
+  }
+}
+
+query{
   Personne{
     name,
     visite {
@@ -75,16 +92,19 @@ query (name: "test 7"){
 }
 
 mutation {
-  createPerson(name: "test 5") {
-    name
-  }
-}
-
-mutation {
   AddMessage(actors: "anjara", text: "salut") {
     actors{
       name
     },
     text
+  }
+}
+
+query {
+  Message {
+    text,
+    actors {
+      name
+    }
   }
 }
