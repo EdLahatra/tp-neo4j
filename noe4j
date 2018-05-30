@@ -47,7 +47,7 @@ CREATE (message:Message)
 SET message = {text: "test", actors: (message)<-[:poster]-(c)}
 CREATE (c)-[:poster]->(message)
 
-query {
+query (name: "test 7"){
   Personne{
     name,
     visite {
