@@ -51,7 +51,7 @@ export const cypherMutation = (params, context, resolveInfo, dynamique) => {
   if (params.dynamique) {
     switch (params.dynamique) {
       case 'ActionPersonne': return `MATCH (c:Personne),(n:Personne) WHERE c.name = '${params.p1}' AND n.name = '${params.p2}' CREATE (c)-[r:${params.relation}]->(n)`
-      case 'AddMessage': return `MATCH (c:Personne) WHERE c.name = '${params.actors}' CREATE (message:Message) SET message = {text: '${params.text}'} CREATE (c)-[:poster]->(message) RETURN message`
+      case 'AddMessage': return `MATCH (c:Personne),(p:Personne) WHERE c.name = '${params.actors}' AND p.name = '${params.to}' CREATE (message:Message) SET message = {text: '${params.text}'} CREATE (c)-[:poster]->(message) CREATE (p)-[:to]->(message) RETURN message`
     }
   }
   // FIXME: lots of duplication here with cypherQuery, extract into util module

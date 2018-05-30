@@ -10,10 +10,12 @@ type Personne {
   blacklistIn: [Personne] @relation(name: "blacklist", direction: "IN")
   favoriteIn: [Personne] @relation(name: "favorite", direction: "IN")
   message: [Message] @relation(name: "poster", direction: "OUT")
+  from: [Message] @relation(name: "to", direction: "OUT")
 }
 
 type Message {
   actors: [Personne] @relation(name: "poster", direction: "IN")
+  to: [Personne] @relation(name: "to", direction: "IN")
   text: String
 }
 
@@ -25,7 +27,7 @@ type Query {
 type Mutation {
   createPerson(name: String): Personne @cypher(statement: "CREATE (p:Personne { name: $name }) RETURN p")
   ActionPersonne(p1: String, p2: String, relation: String!): Personne
-  AddMessage(actors: String!, text: String!): Message
+  AddMessage(actors: String!, text: String!, to: String!): Message
 }
 
 `;
