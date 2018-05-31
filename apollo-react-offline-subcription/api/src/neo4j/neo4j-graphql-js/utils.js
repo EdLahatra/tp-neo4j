@@ -1,0 +1,50 @@
+export const parseArgs = (args) => {
+  if (!args) {
+    return {};
+  }
+
+  if (args.length === 0) {
+    return {};
+  }
+
+  return args.reduce((acc, arg) => {
+    switch (arg.value.kind) {
+      case 'IntValue':
+        acc[arg.name.value] = parseInt(arg.value.value, 10);
+        break;
+      case 'FloatValue':
+        acc[arg.name.value] = parseFloat(arg.value.value);
+        break;
+      default:
+        acc[arg.name.value] = arg.value.value;
+    }
+
+    return acc;
+  }, {});
+};
+
+const getDefaultArguments = (fieldName, schemaType) => {
+  // FIXME: check that these things exist
+
+  try {
+    // eslint-disable-next-line
+    return schemaType._fields[fieldName].args.reduce((acc, arg) => {
+      acc[arg.name] = arg.defaultValue;
+      return acc;
+    }, {});
+  } catch (err) {
+    return {};
+  }
+};
+
+export const cypherDirectiveArgs = (variable, headSelection, schemaType) => {
+  const defaultArgs = getDefaultArguments(headSelection.name.value, schemaType);// {"this": variable};
+  // const schemaArgs = {}; // FIXME: what's the differenc between schemargs and defaultargs?
+  const queryArgs = parseArgs(headSelection.arguments);
+  // eslint-disable-next-line
+  const args = JSON.stringify(Object.assign(defaultArgs, queryArgs)).replace(/\"([^(\")"]+)\":/g, ' $1: ');
+
+  return args === '{}' ? `{this: ${variable}${args.substring(1)}` : `{this: ${variable},${args.substring(1)}`;
+};
+
+export const isMutation = resolveInfo => resolveInfo.operation.operation === 'mutation';
