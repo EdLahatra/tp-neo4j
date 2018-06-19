@@ -1,0 +1,31 @@
+@mixin alignAuto () {
+  margin: 0 auto;
+  display: block;
+}
+
+@mixin roundcorner ($roundValue) {
+  border-radius: $roundValue;
+  -webkit-border-radius: $roundValue;
+  -ms-border-radius: $roundValue;
+  -moz-border-radius: $roundValue;
+}
+
+@mixin line-height($height) {
+  line-height: $height;
+  height: $height;
+  vertical-align: middle;
+}
+
+@mixin boxshadow() {
+  box-shadow: 0 1px 7px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 1px 7px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 1px 7px rgba(0, 0, 0, 0.3);
+  -ms-box-shadow: 0 1px 7px rgba(0, 0, 0, 0.3);
+}
+
+@mixin transition() {
+  transition: ease-in-out all 300ms;
+  -webkit-transition: ease-in-out all 300ms;
+  -moz-transition: ease-in-out all 300ms;
+  -ms-transition: ease-in-out all 300ms;
+}

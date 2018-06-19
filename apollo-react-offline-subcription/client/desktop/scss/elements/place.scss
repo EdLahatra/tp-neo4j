@@ -1,0 +1,133 @@
+.place-list {
+  max-height: 420px;
+  overflow-y: scroll;
+  padding: 0 7px;
+}
+
+.place-icon {
+  vertical-align: middle;
+  font-size: 24px;
+  display: inline-block;
+  margin-top: -5px;
+  margin-right: 10px;
+}
+
+.toggle-arrow {
+  transition: ease-in-out 300ms all;
+  font-size: 12px;
+  position: absolute;
+  right: 5px;
+  top: 18px;
+}
+
+.toggle-arrow.open {
+  display: none;
+}
+
+.toggle-arrow.closed {
+  display: block;
+}
+
+.placeSelected {
+  position: relative;
+  color: white;
+
+  .toggle-arrow.open {
+    opacity: 1;
+    display: block;
+  }
+
+  .toggle-arrow.closed {
+    display: none;
+  }
+}
+
+.addplace-container {
+  padding: 0 7px 0;
+
+  .add-place {
+    font-size: 0;
+    width: 32px;
+    height: 32px;
+    background-color: $cyan;
+    border-radius: 3px 3px 0 0;
+    -webkit-border-radius: 3px 3px 0 0;
+    -ms-border-radius: 3px 3px 0 0;
+    -moz-border-radius: 3px 3px 0 0;
+
+    &::before {
+      content: "+";
+      color: white;
+      font-size: 24px;
+      line-height: 32px;
+      text-align: center;
+      display: block;
+      font-weight: bold;
+    }
+  }
+
+  .addplace-field {
+    padding: 20px 0;
+    text-align: left;
+    margin-bottom: 10px;
+    display: flex;
+
+    input {
+      color: $darkpurple;
+      position: relative;
+
+      &:focus {
+        border: none;
+      }
+    }
+  }
+
+  .close-place {
+    font-size: 0;
+    width: 32px;
+    height: 32px;
+    background-color: $cyan;
+    border-radius: 3px 3px 0 0;
+    -webkit-border-radius: 3px 3px 0 0;
+    -ms-border-radius: 3px 3px 0 0;
+    -moz-border-radius: 3px 3px 0 0;
+
+    &::before {
+      content: "x";
+      color: white;
+      font-size: 24px;
+      line-height: 32px;
+      text-align: center;
+      display: block;
+      font-weight: bold;
+    }
+  }
+}
+
+.user-placelist {
+  .place-user {
+    padding: 7px 0;
+
+    .user-profil {
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 14px;
+    }
+
+    .user-identity {
+      max-width: 80%;
+      display: inline-block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      vertical-align: middle;
+    }
+  }
+}
+
+.top-place-list {
+  display: flex;
+  display: -webkit-flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+}

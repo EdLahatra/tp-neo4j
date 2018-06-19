@@ -1,0 +1,246 @@
+.file-icon {
+  font-size: 24px;
+}
+
+.file-dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: $lightgrey;
+  position: relative;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &.with-topic {
+    align-items: flex-start;
+    justify-content: flex-start;
+    display: block;
+    z-index: 500;
+
+    &.fullHeight {
+      flex: 1;
+    }
+
+    & .file-icon {
+      display: none;
+    }
+  }
+
+  &.empty {
+    flex: 1;
+  }
+
+  &.active::before {
+    content: "";
+    background: $lightcyan;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 700;
+  }
+
+  &.active::after {
+    @include roundcorner(50%);
+
+    content: "+";
+    background: white;
+    color: $lightcyan;
+    text-align: center;
+    font-weight: bold;
+    line-height: 60px;
+    font-size: 72px;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 60px;
+    height: 60px;
+    z-index: 710;
+  }
+}
+
+.participants {
+  display: flex;
+  flex-direction: row-reverse;
+  flex: 1;
+  text-align: right;
+  padding-right: 20px;
+
+  .user {
+    @include line-height(35px);
+    @include roundcorner(50%);
+
+    width: 35px;
+    background: $lightgrey;
+    display: block;
+    padding: 2px;
+    margin-right: -10px;
+    position: relative;
+
+    .in-list-profil img {
+      @include roundcorner(50%);
+    }
+
+    &.active {
+      background: $green;
+    }
+
+    &:hover {
+      cursor: pointer;
+      background: $cyan;
+    }
+
+    .user-profil {
+      max-width: 30px;
+      margin: 0 auto;
+      display: block;
+    }
+  }
+}
+
+.start-invite {
+  @include line-height(35px);
+  @include roundcorner(50%);
+  @include transition();
+
+  width: 35px;
+  min-width: 35px;
+  font-size: 24px;
+  background-color: $cyan;
+  display: inline-block;
+  color: white;
+  text-align: center;
+  float: right;
+
+  &:hover {
+    cursor: pointer;
+    background-color: darken($cyan, 10);
+  }
+}
+
+#mask-topic {
+  margin-right: -24px;
+  flex: 1;
+  padding-right: 24px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: auto;
+
+  .upload-area {
+    position: absolute;
+    z-index: 500;
+    top: 50%;
+    width: 300px;
+    height: 100px;
+    text-align: center;
+    background: #f1f1f1;
+    padding: 20px 0;
+    right: 0;
+    left: 0;
+    margin: -50px auto 0;
+    color: $lightgrey;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    p {
+      margin: 10px 0;
+    }
+  }
+}
+
+.topic {
+  display: flex;
+  margin-bottom: 15px;
+
+  .input-area {
+    @include line-height(35px);
+    @include roundcorner(4px);
+
+    background-color: white;
+    border: 1px solid $lightgrey;
+    position: relative;
+    flex: 1;
+    display: flex;
+
+    input {
+      flex: 1;
+
+      &:focus {
+        border-bottom: none;
+        outline: none;
+      }
+    }
+
+    .send-icon {
+      @include transition();
+
+      color: $lightgrey;
+      font-size: 20px;
+      padding: 8px;
+
+      &:hover {
+        cursor: pointer;
+        color: $cyan;
+      }
+    }
+  }
+
+  .add-file {
+    padding: 5px 0 5px 10px;
+    font-size: 24px;
+    color: $lightgrey;
+
+    #mask-topic {
+      margin-right: 0;
+      padding-right: 0;
+      display: inline-block;
+      height: 25px;
+
+      .upload-area {
+        top: 0;
+        width: inherit;
+        height: inherit;
+        padding: 0;
+        margin: 0;
+
+        p {
+          display: none;
+        }
+      }
+    }
+
+    .file-dropzone {
+      &.with-topic {
+        display: none;
+      }
+
+      &.empty .file-icon {
+        display: block;
+        height: 25px;
+        margin: 0;
+      }
+
+      svg {
+        @include transition();
+
+        &:hover {
+          cursor: pointer;
+          color: $cyan;
+        }
+      }
+    }
+  }
+}
+
+.skype-link a {
+  display: block;
+}

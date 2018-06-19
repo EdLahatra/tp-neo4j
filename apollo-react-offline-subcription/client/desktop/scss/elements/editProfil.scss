@@ -1,0 +1,124 @@
+.user-profil-detail {
+  @include transition();
+  @include roundcorner(50%);
+
+  overflow: hidden;
+
+  &:hover {
+    cursor: pointer;
+    opacity: 0.8;
+  }
+}
+
+.edit-profil {
+  @include roundcorner(3px);
+
+  width: 420px;
+  position: relative;
+
+  .close-btn {
+    position: absolute;
+    right: 12px;
+  }
+
+  .header {
+    padding-bottom: 12px;
+
+    .profil-img-edit {
+      @include roundcorner(50%);
+
+      text-align: center;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+      width: 80px;
+      height: 80px;
+
+      .overlay-icon {
+        @include transition();
+
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        z-index: 10;
+        font-size: 30px;
+        opacity: 0;
+        background: rgba(0, 0, 0, 0.3);
+        color: white;
+      }
+
+      .large-view {
+        @include transition();
+
+        width: 100%;
+        max-width: inherit;
+        position: relative;
+      }
+
+      &:hover {
+        cursor: pointer;
+        opacity: 0.8;
+
+        .overlay-icon {
+          opacity: 1;
+        }
+      }
+    }
+
+    .logout {
+      font-size: 16px;
+      color: $cyan;
+      display: block;
+      text-align: center;
+      padding: 5px 0 0;
+
+      .icon {
+        margin-right: $unit / 2;
+      }
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .edit-wrapper {
+    .user-name {
+      display: block;
+      text-align: center;
+      font-size: 20px;
+      color: $darkgrey;
+      padding: 10px 0 0;
+    }
+
+    .field input {
+      display: block;
+      width: 100%;
+      border: 1px solid $lightgrey;
+      margin-top: 10px;
+    }
+
+    select {
+      display: block;
+      border: 1px solid $lightgrey;
+      padding: 5px 10px;
+      margin-top: 10px;
+      width: 100%;
+    }
+  }
+
+  .change-pwd {
+    @include transition();
+
+    display: block;
+    margin: 20px 0;
+
+    &:hover {
+      cursor: pointer;
+      color: $cyan;
+    }
+  }
+}

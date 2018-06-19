@@ -1,0 +1,287 @@
+/* Header */
+
+#header {
+  min-height: 40px;
+  background-color: $darkpurple;
+  display: flex;
+  align-items: center;
+  padding: 0 $unit;
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+  top: 0;
+
+  .left {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    flex: 1;
+
+    p {
+      margin-right: $unit;
+      color: $lightpurple;
+    }
+  }
+
+  .share-url {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 5px 10px;
+    background: $darkpurple2;
+    margin-right: $unit;
+    flex: 1;
+
+    @include roundcorner(2px);
+
+    > div {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.6);
+    }
+  }
+
+  .user-profil {
+    @include roundcorner(50%);
+
+    max-width: 32px;
+    overflow: hidden;
+  }
+
+  .logout {
+    margin-left: $unit / 2;
+
+    .icon {
+      margin-right: 8px;
+      font-size: 20px;
+    }
+
+    &:hover {
+      background-color: $cyan;
+      color: #fff;
+    }
+  }
+}
+
+/* Main container */
+
+#main-container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  min-height: 100vh;
+}
+
+.client-container {
+  display: flex;
+  flex-grow: 1;
+  overflow: hidden;
+  height: 100vh;
+}
+
+/* Left sidenav */
+
+#left-sidenav {
+  width: 100%;
+  color: white;
+  background: $darkblue;
+  height: 100%;
+  padding-top: 40px;
+
+  .content-head {
+    position: relative;
+    width: 100%;
+
+    .all-topics {
+      @include transition();
+
+      position: absolute;
+      right: 14px;
+      font-size: 16px;
+      color: $lightgrey;
+      z-index: 10;
+      top: 0;
+      line-height: 31px;
+
+      &:hover {
+        cursor: pointer;
+        color: $cyan;
+      }
+
+      .icon {
+        margin-top: -2px;
+      }
+    }
+  }
+
+  .place-list {
+    padding: 0 5px;
+    overflow-y: auto;
+    max-height: 480px;
+  }
+
+  .item-place {
+    cursor: pointer;
+    background: rgba(48, 44, 61, 0.56);
+    margin-bottom: 4px;
+    padding: 0 8px;
+
+    @include roundcorner(4px);
+  }
+
+  .add-place {
+    background-color: $cyan;
+  }
+
+  #logoZone {
+    padding: 30px 0;
+    text-align: center;
+  }
+}
+
+#innerTopbar {
+  background-color: $cyan;
+  min-height: 48px;
+  position: relative;
+  padding: 12px 24px;
+  margin-top: 40px;
+}
+
+#discussions {
+  background: $lightergrey2;
+  padding: $innerPadding;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100%;
+  overflow: hidden;
+
+  #discussions-head {
+    margin-bottom: 25px;
+    display: flex;
+    flex-direction: row;
+    min-height: 35px;
+
+    .folder-name-detail {
+      font-size: 24px;
+      font-weight: bold;
+      color: black;
+      word-break: break-word;
+      padding-right: 12px;
+    }
+  }
+
+  #topics-list {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: hidden;
+    margin-right: -24px;
+    padding-right: 24px;
+    max-height: 70vh;
+
+    #mask-topic .empty .file-icon {
+      display: none;
+    }
+  }
+
+  .discussion {
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    margin: 5px 0;
+    border: 1px solid $lightergrey2;
+    width: 100%;
+    min-height: 46px;
+    cursor: pointer;
+
+    .user-profil {
+      margin-left: 16px;
+    }
+
+    .topic-title {
+      flex: 1;
+      font-weight: bold;
+
+      .text-title {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: #666;
+        max-width: 300px;
+        display: block;
+        overflow: hidden;
+      }
+
+      .path .text-title {
+        font-weight: normal;
+        display: block;
+        padding: 5px 0 0;
+        color: $lightgrey;
+      }
+    }
+
+    .action-area {
+      opacity: 0;
+    }
+
+    .message-icon {
+      font-size: 24px;
+      background: $lightgrey2;
+      padding: 5px 10px;
+      color: white;
+      margin-right: 16px;
+    }
+
+    .action-icon {
+      opacity: 0;
+      color: $cyan;
+      font-size: 18px;
+      margin-left: 12px;
+    }
+
+    &.current {
+      background-color: $lightcyan;
+      text-decoration: none;
+      border: 1px solid $cyan;
+
+      &:hover .action-icon {
+        opacity: 1;
+      }
+    }
+
+    &:hover .actionArea {
+      opacity: 1;
+    }
+
+    .rename-topic {
+      flex: 1;
+      display: flex;
+      margin: 2px 0;
+
+      & input {
+        flex: 1;
+
+        &:focus {
+          border: none;
+        }
+      }
+    }
+
+    .user-list {
+      img {
+        border-radius: 50%;
+      }
+    }
+  }
+}
+
+#chat {
+  display: flex;
+  flex-direction: column;
+  padding-top: $unit;
+  flex: 1;
+  height: 100%;
+
+  .add-message {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 10px;
+  }
+}

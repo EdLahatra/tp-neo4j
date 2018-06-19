@@ -1,0 +1,173 @@
+.contact-detail {
+  @include boxshadow();
+
+  position: absolute;
+  top: 45px;
+  right: 0;
+  z-index: 501;
+  background: white;
+
+  &.folder-user {
+    box-shadow: none;
+    background: transparent;
+    position: relative;
+    top: 0;
+    min-width: 276px;
+  }
+
+  .identity {
+    display: flex;
+    flex-direction: row;
+    flex-shrink: unset;
+    align-items: center;
+    justify-content: flex-start;
+    font-weight: bold;
+
+    img {
+      min-width: 50px;
+      margin: 0 12px 0 0;
+    }
+  }
+
+  .contents {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    text-align: left;
+    margin-top: 20px;
+
+    .user-role {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      line-height: 35px;
+
+      .role {
+        flex: 1;
+      }
+    }
+  }
+
+  & .footer {
+    font-size: 16px;
+    line-height: 35px;
+    text-align: center;
+  }
+}
+
+.role-contents {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 40px;
+  position: relative;
+
+  .role-item {
+    text-align: center;
+    width: 25%;
+
+    .description {
+      min-height: 80px;
+    }
+
+    .role-label {
+      display: block;
+      font-size: 18px;
+      color: black;
+      margin-top: 30px;
+    }
+  }
+
+  &::before {
+    content: "";
+    border-top: 1px solid $lightgrey;
+    position: absolute;
+    min-height: 1px;
+    bottom: 38px;
+    left: 0;
+    width: 100%;
+  }
+}
+
+.info-user {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+
+  .item {
+    line-height: 35px;
+  }
+}
+
+.icones {
+  margin-right: 12px;
+  font-size: 20px;
+}
+
+.status {
+  @extend .icones;
+
+  color: $green;
+}
+
+.mail {
+  @extend .icones;
+
+  color: $orange;
+}
+
+.delete {
+  @extend .icones;
+
+  color: $lightgrey;
+  margin-top: -5px;
+}
+
+.skype-icon {
+  @extend .icones;
+
+  color: $skypeCyan;
+  margin-top: -5px;
+}
+
+.pin-map-icon {
+  @extend .icones;
+
+  color: $orange;
+  margin-top: -5px;
+}
+
+.users-in-place {
+  position: static;
+}
+
+.skype-item {
+  display: block;
+  line-height: 35px;
+
+  & a {
+    text-decoration: none;
+    color: grey;
+    margin-left: 4px;
+
+    &:hover {
+      color: $skypeCyan;
+    }
+  }
+}
+
+.delete-contact {
+  @include transition();
+
+  &:hover {
+    color: $cyan;
+    cursor: pointer;
+
+    .delete {
+      @include transition();
+
+      color: $cyan;
+    }
+  }
+}

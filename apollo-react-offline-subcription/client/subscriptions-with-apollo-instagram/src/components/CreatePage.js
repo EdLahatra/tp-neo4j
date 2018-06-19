@@ -42,10 +42,16 @@ class CreatePage extends React.Component {
   }
 
   handlePost = async () => {
+    const d = new Date()
+    console.log(d)
     const { name } = this.state
-    for (let i = 1 ; i <= 1000; i++){
+    for (let i = 0 ; i <= 1000; i++){
+      console.log(`create test ${i}`)
       await this.props.addPost({ name: `test ${i}` })
     }
+    const d1 = new Date()
+    console.log(d1)    
+    alert(d, '======= fin ======', d1)
     this.props.router.push('/')
     /* this.props.addPost({ name })
       .then(() => {

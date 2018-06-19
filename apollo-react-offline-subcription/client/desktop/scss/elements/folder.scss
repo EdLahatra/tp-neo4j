@@ -1,0 +1,139 @@
+.subtitle-place {
+  text-transform: uppercase;
+  color: $greypurple;
+  padding: 9px;
+  font-size: 18px;
+  display: block;
+}
+
+.subfolders {
+  padding: 3px 0;
+
+  form {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+  }
+
+  .folder-content {
+    list-style: none;
+    position: relative;
+    margin: 5px 0;
+    z-index: 10;
+
+    span:hover {
+      background-color: $hoverpurple;
+    }
+
+    .subfolders {
+      padding: 0 0 0 15px;
+      margin: 0;
+
+      span {
+        @include roundcorner(2px);
+      }
+    }
+
+    .action-area {
+      display: none;
+
+      .action-icon {
+        @include transition();
+
+        margin-left: 5px;
+        vertical-align: middle;
+        border-radius: 50%;
+        padding: 2px;
+        width: 20px;
+        height: 20px;
+        color: white;
+
+        &:hover {
+          color: $green;
+          background: white;
+        }
+      }
+    }
+  }
+
+  .folder-name {
+    @include line-height(30px);
+
+    cursor: pointer;
+    display: flex;
+    padding-left: 10px;
+    font-size: 16px;
+    text-transform: inherit;
+    color: white;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    justify-content: space-between;
+    align-items: center;
+
+    .chevron-folder {
+      @include transition();
+
+      margin-right: 8px;
+    }
+
+    &.openedParent {
+      .chevron-folder {
+        transform: rotateX(180deg);
+        -webkit-transform: rotateX(180deg);
+        -ms-transform: rotateX(180deg);
+        -moz-transform: rotateX(180deg);
+      }
+    }
+
+    .text {
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    &.current {
+      background: $green;
+      padding: 0 10px;
+
+      @include roundcorner(2px);
+
+      &:hover {
+        background-color: $green;
+
+        .action-area {
+          display: block;
+          background-color: $green;
+        }
+      }
+    }
+  }
+
+  .rename {
+    display: flex;
+    align-items: center;
+
+    input {
+      background: none;
+      border-bottom: 1px solid white;
+      color: white;
+      padding: 0;
+      font-size: 14px;
+      flex: 1;
+      border-radius: 0;
+    }
+  }
+
+  .add-folder-field {
+    margin: 10px 0;
+    display: flex;
+
+    input {
+      width: calc(100% - 44px);
+
+      &:focus {
+        border: none;
+      }
+    }
+  }
+}

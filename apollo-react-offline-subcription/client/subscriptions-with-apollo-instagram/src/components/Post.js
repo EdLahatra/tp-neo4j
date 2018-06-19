@@ -22,16 +22,22 @@ class Post extends React.Component {
         /> */ }
         <div className='pt3'>
           {this.props.post.name}&nbsp;
-          <span className='red f6 pointer dim' onClick={this.handleDelete}>Delete</span>
+          <span className='red f6 pointer dim' onClick={this.handleDelete}>Voir</span>
         </div>
       </div>
     )
   }
 
   handleDelete = async () => {
+    const d = new Date()
+    console.log(d)
     for (let i = 1 ; i <= 1000; i++){
+      console.log(`test ${i} => test ${i + 1}`)
       await this.props.mutate({variables: {p1: `test ${i}`, p2: `test ${i + 1}`, relation: 'visite'}})
     }
+    const d1 = new Date()
+    console.log(d1)    
+    alert(d, '======= fin ======', d1);
     /* this.props.mutate({variables: {p1: this.props.post.id}})
       .then(this.props.refresh) */
   }

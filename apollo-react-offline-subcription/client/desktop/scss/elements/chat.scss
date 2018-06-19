@@ -1,0 +1,550 @@
+/* Modals for file edit */
+#download {
+  max-width: 380px;
+
+  .close-btn {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+  }
+
+  .text {
+    margin: 10px 0 $unit;
+    font-size: 16px;
+  }
+
+  .file-edit-contents {
+    margin-top: $unit;
+    display: flex;
+    justify-content: center;
+  }
+
+  .file-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: $darkgrey;
+    display: block;
+    margin-top: 24px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 24px;
+  }
+
+  .icon {
+    @include roundcorner(3px);
+    @include transition();
+
+    width: 110px;
+    height: 110px;
+    text-align: center;
+    background: $lightgrey2;
+    font-size: 30px;
+    color: white;
+    margin: 0 auto 12px;
+    padding: 35px;
+  }
+
+  .action-icon {
+    display: flex;
+    font-size: 16px;
+    flex-direction: column;
+    text-align: center;
+    width: 150px;
+    margin: 0 10px;
+
+    &:hover {
+      cursor: pointer;
+
+      .icon {
+        background-color: $cyan;
+      }
+    }
+  }
+}
+
+#comment {
+  h3 {
+    margin-bottom: 20px;
+  }
+
+  textarea {
+    display: block;
+    width: 400px;
+    border: 1px solid #e0e0e0;
+    min-height: 140px;
+    margin: 0 0 20px;
+  }
+}
+
+.file-details-version {
+  width: 100%;
+  text-align: center;
+  position: relative;
+  margin: 10px 0;
+  clear: both;
+
+  p {
+    background-color: white;
+    display: block;
+    width: 120px;
+    margin: 0 auto;
+    font-weight: bold;
+  }
+
+  .version-btn-toggle {
+    @include transition ();
+
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: white;
+    font-size: 20px;
+    color: $cyan;
+
+    &:hover {
+      cursor: pointer;
+      color: darken($cyan, 10%);
+    }
+  }
+}
+
+.file-details-version::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background-color: $lightgrey;
+  top: 8px;
+  left: 0;
+  z-index: -1;
+}
+
+#chat {
+  & .no-discussion {
+    padding: 0 $unit;
+  }
+
+  .title-chat {
+    font-size: 24px;
+    font-weight: bold;
+    color: black;
+    word-break: break-word;
+    padding: 0 24px;
+    display: flex;
+    flex: 1;
+    min-height: 50px;
+  }
+
+  .message-container {
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: $unit;
+    overflow-y: auto;
+    max-height: 540px;
+
+    .audio-message {
+      @include roundcorner(3px);
+
+      background: $lightcyan;
+      padding: 12px;
+    }
+  }
+
+  .release-window {
+    @include roundcorner(3px);
+
+    padding: $unit;
+    text-align: center;
+    line-height: 150%;
+    clear: both;
+    border: 1px solid $lightgrey;
+    margin-top: 24px;
+
+    .title {
+      color: $darkgrey;
+    }
+
+    .text {
+      margin-top: $unit / 2;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: center;
+      margin-top: 24px;
+
+      .btn {
+        margin: 5px;
+      }
+    }
+  }
+
+  .message-content {
+    background-color: $lightgrey2;
+    margin: 4px 0;
+    display: inline-block;
+    width: auto;
+    align-self: flex-end;
+    padding: 12px;
+    border-radius: 3px;
+    max-width: 400px;
+
+    &.user {
+      background-color: $lightcyan;
+    }
+
+    &.approved-message {
+      color: white;
+      background-color: $green;
+
+      .icon {
+        margin-right: $unit / 2;
+        font-size: 24px;
+      }
+    }
+
+    &.unapproved-message {
+      color: white;
+      background-color: $red;
+
+      .icon {
+        margin-right: $unit / 2;
+        font-size: 24px;
+      }
+    }
+
+    &.delete-message {
+      color: white;
+      background-color: $red;
+
+      .icon {
+        margin-right: $unit / 2;
+        font-size: 24px;
+      }
+    }
+
+    &.locked-message {
+      color: white;
+      background-color: $cyan !important;
+
+      .icon {
+        margin-right: $unit / 2;
+        font-size: 24px;
+        background: white;
+        border-radius: 50%;
+        color: $cyan;
+        padding: 3px;
+      }
+    }
+
+    .version {
+      display: block;
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      margin: 0;
+    }
+
+    .file-name {
+      color: $darkgrey;
+      max-width: 240px;
+      min-width: 150px;
+      margin-bottom: 12px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding-right: 22px;
+      white-space: nowrap;
+    }
+
+    .file-name,
+    .file-type,
+    .file-size {
+      display: block;
+    }
+
+    .edit-popup {
+      @include boxshadow();
+      @include roundcorner(5px);
+
+      position: absolute;
+      right: -5px;
+      background: white;
+      padding: $unit / 2;
+      top: -5px;
+      width: 220px;
+      font-size: 16px;
+      z-index: 50;
+
+      .file-name {
+        margin-top: 5px;
+        padding-right: 30px;
+      }
+
+      .version {
+        top: 12px;
+      }
+
+      .detete-file {
+        @include transition();
+
+        display: block;
+
+        .icon {
+          @include transition();
+
+          margin-right: 12px;
+          margin-top: -3px;
+          font-size: 20px;
+        }
+
+        &:hover {
+          cursor: pointer;
+          color: $cyan;
+
+          & .icon {
+            color: $cyan;
+          }
+        }
+      }
+
+      .close-popup {
+        @include transition();
+
+        display: block;
+        text-align: center;
+        padding: 12px 0 0;
+        border-top: 1px solid #e0e0e0;
+        margin-top: 20px;
+
+        &:hover {
+          color: $cyan;
+          cursor: pointer;
+        }
+      }
+
+      .status-action {
+        margin-bottom: 12px;
+
+        .icons {
+          font-size: 20px;
+          margin-right: 12px;
+        }
+
+        .desapprove {
+          @include transition();
+
+          .icon {
+            @extend .icons;
+
+            color: $red;
+          }
+
+          &:hover {
+            cursor: pointer;
+            color: $cyan;
+          }
+        }
+
+        .approve {
+          @include transition();
+
+          .icon {
+            @extend .icons;
+
+            color: $green;
+          }
+
+          &:hover {
+            cursor: pointer;
+            color: $cyan;
+          }
+        }
+      }
+    }
+  }
+
+  .comment {
+    .message-content {
+      padding: 0;
+      overflow: hidden;
+
+      .comment-detail {
+        display: block;
+        background: $darkpurple2;
+        padding: 9px;
+        color: white;
+
+        svg {
+          vertical-align: middle;
+          font-size: 20px;
+          color: white;
+          margin: 0 14px 0 0;
+        }
+      }
+
+      .comment-text {
+        padding: $unit / 2;
+        display: block;
+      }
+    }
+  }
+
+  .topic {
+    padding: $unit;
+    margin: 0;
+    background: $lightergrey;
+    flex-direction: row-reverse;
+
+    .add-file svg:hover {
+      @include transition();
+
+      color: $cyan;
+      cursor: pointer;
+    }
+  }
+
+  .releaseClosed .add-file {
+    display: block;
+  }
+
+  .releaseOpen {
+    display: block;
+
+    .add-file {
+      padding: 0;
+      display: none;
+    }
+  }
+
+  .date-of-message {
+    display: inline-block;
+    vertical-align: top;
+    margin: 10px;
+    color: $lightgrey;
+  }
+
+  .message {
+    display: flex;
+    clear: both;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+
+    .identity {
+      align-self: flex-start;
+      margin-right: 12px;
+    }
+
+    &.user {
+      float: right;
+      flex-direction: row;
+      align-self: flex-end;
+      width: 100%;
+
+      .identity {
+        align-self: flex-start;
+        margin-left: 12px;
+        margin-right: 0;
+        margin-top: 4px;
+      }
+
+      &::after {
+        content: "";
+        display: table;
+        float: none;
+        clear: both;
+      }
+
+      .date-of-message-file.noneVersion {
+        text-align: right;
+      }
+    }
+
+    .date-of-message-file {
+      width: 100%;
+      padding: 0 34px;
+    }
+  }
+
+  /* Type File */
+  .file {
+    min-width: 100px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: inherit;
+
+    .file-type-icon {
+      margin: 0 10px 0 0;
+      min-height: 50px;
+    }
+
+    .resized-img {
+      @extend .file-type-icon;
+    }
+
+    .file-details {
+      max-width: 300px;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    .file-type,
+    .file-size {
+      font-size: 12px;
+    }
+
+    .more {
+      @include transition();
+
+      font-size: 18px;
+      align-self: flex-start;
+      opacity: 0;
+      color: $cyan;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    &:hover {
+      .more {
+        opacity: 1;
+      }
+    }
+  }
+
+  /* Approved or lock file */
+  .miniature {
+    position: relative;
+    margin: 0 10px 0 0;
+
+    .status-icon {
+      @include roundcorner(50%);
+
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      right: 0;
+      top: 50%;
+      margin-top: -10px;
+    }
+
+    .status-approved {
+      @extend .status-icon;
+
+      color: $green;
+      background-color: white;
+    }
+
+    .status-locked {
+      @extend .status-icon;
+
+      color: white;
+      background-color: $orange;
+      padding: 4px;
+    }
+  }
+}

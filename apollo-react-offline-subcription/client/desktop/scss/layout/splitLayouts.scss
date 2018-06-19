@@ -1,0 +1,28 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100%;
+
+  .main-wrapper {
+    position: static;
+    flex: 1;
+  }
+
+  .wrap-layout {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    flex: 1;
+    overflow: hidden;
+    height: calc(100% - 88px);
+    position: static;
+  }
+
+  .flex-item {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+}
+

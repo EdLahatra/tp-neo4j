@@ -1,0 +1,77 @@
+.file-type-icon {
+  height: 34px;
+  width: auto;
+  display: block;
+}
+
+.file {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  width: 100%;
+
+  .version {
+    @include roundcorner(50%);
+    @include line-height(24px);
+
+    background-color: $cyan;
+    color: white;
+    width: 24px;
+    min-width: 24px;
+    font-weight: bold;
+    font-size: 10px;
+    text-align: center;
+    margin-right: 16px;
+  }
+}
+
+.miniature-icon {
+  position: relative;
+  width: 44px;
+  height: 34px;
+  margin-right: 16px;
+
+  .resized-img {
+    display: flex;
+    width: auto;
+    height: 100%;
+    margin: 0 auto;
+    max-width: 44px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .status-icon {
+    @include roundcorner(50%);
+
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    right: -10px;
+    top: 7px;
+  }
+
+  .status-approved {
+    @extend .status-icon;
+
+    color: $green;
+    background-color: white;
+  }
+
+  .status-locked {
+    @extend .status-icon;
+
+    color: white;
+    background-color: $orange;
+    padding: 4px;
+  }
+
+  &.approved .status-approved {
+    display: block;
+  }
+
+  &.locked .status-locked {
+    display: block;
+  }
+}

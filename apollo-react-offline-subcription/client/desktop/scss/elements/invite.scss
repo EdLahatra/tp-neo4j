@@ -1,0 +1,64 @@
+.invitation {
+  .invite-content {
+    max-height: 300px;
+    overflow-y: auto;
+  }
+
+  .invite-fieldset {
+    flex-direction: row;
+    display: flex;
+    justify-content: center;
+    color: black;
+  }
+
+  .invite-more {
+    position: relative;
+    display: block;
+    margin: 50px 0 0;
+    border-top: 1px solid $lightgrey;
+
+    .add-more {
+      position: absolute;
+      right: 0;
+      top: -15px;
+      z-index: 20;
+      background: $lightergrey;
+      padding-left: $unit / 2;
+
+      .icon {
+        @include transition();
+
+        color: $cyan;
+        font-size: 30px;
+        margin-left: 8px;
+
+        &:hover {
+          cursor: pointer;
+          color: darken($cyan, 10%);
+        }
+      }
+    }
+  }
+
+  .message {
+    margin-top: 30px;
+
+    textarea {
+      min-height: 120px;
+    }
+  }
+
+  .small {
+    @include transition();
+
+    color: $red;
+    font-size: 30px;
+    margin-left: 8px;
+    align-self: center;
+
+    &:hover {
+      cursor: pointer;
+      color: darken($red, 10%);
+    }
+  }
+}
