@@ -1,3 +1,8 @@
+#localhost:7687 => {
+  username:neo4j,
+  password:lanjara0311
+}
+
 #Creer Atribut P
 CREATE (p2:Personne { name: 'anjara' })
 CREATE (p1:Personne { name : 'lahatra' })
@@ -14,8 +19,8 @@ CREATE (c)-[h:blaclist]->(a)
 CREATE (b)-[d:blaclist]->(n)
 CREATE (c)-[f:favorite]->(b)
 CREATE (n)-[g:favorite]->(a)
-CREATE (c)-[r:visite]->(a)
-CREATE (a)-[v:visite]->(c)
+CREATE (c)-[k:visite]->(a)
+CREATE (a)-[w:visite]->(c)
 return a,b,c,n
 
 #Delete Relation et Collection

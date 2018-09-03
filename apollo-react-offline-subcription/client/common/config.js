@@ -1,6 +1,6 @@
 export default {
   cloudinaryName: 'raslasarslas',
   cloudinaryUploadPreset: 'idfj25ed',
-  serverUrl: 'http://192.168.0.55:8080/graphql',
-  websocketUrl: 'ws://192.168.0.55:8080/subscriptions',
+  serverUrl: 'http://10.2.53.245:8080/graphql',
+  websocketUrl: 'ws://10.2.53.245:8080/subscriptions'
 };
